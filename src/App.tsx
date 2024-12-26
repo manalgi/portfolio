@@ -1,13 +1,22 @@
-import { Button } from "@mui/material"
-import { useState } from "react"
-
+import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { LeftSection } from './sections/LeftSection';
+import { RightSection } from './sections/RightSection';
 
 function App() {
-  const [count, setCount] = useState(0)
+  return (
+    <Box>
+      <Grid container>
+        <Grid size={7}>
+          <LeftSection />
+        </Grid>
 
-  return <Button onClick={()=>setCount(prev=>prev+1)}>
-    {count}
-  </Button>
+        <Grid size={3}>
+          <RightSection />
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }
 
-export default App
+export default App;
