@@ -1,24 +1,41 @@
-import { defineConfig, mergeConfig } from 'vite'
-import { defineConfig as defineVitestConfig } from 'vitest/config'
+import { defineConfig, mergeConfig } from 'vite';
+import { defineConfig as defineVitestConfig } from 'vitest/config';
+import { pigment } from '@pigment-css/vite-plugin';
+import { createTheme } from '@mui/material';
 
-import react from '@vitejs/plugin-react'
-import tsconfigPaths from 'vite-tsconfig-paths'
-import checker from 'vite-plugin-checker'
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import checker from 'vite-plugin-checker';
+
+/**
+ * @type {import('@pigment-css/vite-plugin').PigmentOptions}
+ */
+const pigmentConfig = {
+  transformLibraries: ['@mui/material'],
+  theme: createTheme({
+    cssVariables: true,
+  }),
+};
 
 // https://vite.dev/config/
- const viteConfig = defineConfig({
-  plugins: [react(),tsconfigPaths(),checker({
-    typescript: true,
-    overlay:{
-      position:'br',
-      initialIsOpen:'error'
-    }
-  }),],
-  server:{
-    open:true,
-    port:3000
-  }
-})
+const viteConfig = defineConfig({
+  plugins: [
+    react(),
+    tsconfigPaths(),
+    checker({
+      typescript: true,
+      overlay: {
+        position: 'br',
+        initialIsOpen: 'error',
+      },
+    }),
+    pigment(pigmentConfig),
+  ],
+  server: {
+    open: true,
+    port: 3000,
+  },
+});
 
 const vitestConfig = defineVitestConfig({
   test: {
